@@ -6,6 +6,7 @@
     <!--    <link rel="stylesheet" type="text/css"-->
     <!--          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -13,12 +14,6 @@
     <link rel="stylesheet" type="text/css"
           href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap.min.css">
     <style>
-      .container {
-        width: 90%; /* ou qualquer outra largura desejada */
-        margin-left: auto;
-        margin-right: auto;
-      }
-
 
     </style>
 </head>
@@ -56,7 +51,7 @@
             </td>
             <td>{{ poster.titulo_traduzido }}</td>
             <td align="center"><a href="/editar/{{ poster.id }}"><i class="glyphicon glyphicon-pencil"></i></a></td>
-            <td align="center"><a href="/{{ poster.id }}" data-toggle="modal" data-target="#excluiModal">
+            <td align="center"><a href="/{{ poster.id }}">
                 <i class="glyphicon glyphicon-trash" style="color:red"></i></a></td>
         </tr>
         {% endfor %}
@@ -96,32 +91,24 @@
       });
     });
 
+
     </script>
 </div>
 
-<!-- Modal delete -->
-{% if posterID != undefinied %}
-<div class="modal fade" id="excluiModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalCenterTitle">Exclusão de Poster</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Deseja Realmente excluir o poster {{posterID.titulo_traduzido}} ?</p>
-      </div>
-      <div class="modal-footer">
-          <a class="btn btn-secondary" href="/">Cancelar</a>
-          <a class="btn btn-primary" href="/excluir/{{posterID.id}}">Confirmar</a>
-      </div>
+{% if posterID != undefined %}
+<session class="delete">
+    <div id="card">
+        <p></p>
+        <hr>
+        <p>Deseja realmente excluir o poster</p>
+        <p class="titulo">{{posterID.titulo_original}}</p>
+        <div id="btns">
+            <a class="btn-cancelar" href="/">Cancelar</a>
+            <a class="btn-apagar" href="/excluir/{{posterID.id}}">Ok</a>
+        </div>
     </div>
-  </div>
-</div>
+</session>
 {% endif %}
-
 
 </body>
 </html>

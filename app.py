@@ -44,9 +44,9 @@ def index():
 
 @app.route("/<id>")
 def modal(id):
-    print('oi')
     posterID = Posters.query.filter_by(id=id).first()
-    return render_template('index.html', posterID=posterID)
+    posters = Posters.query.filter(Posters.tmdb < 0).all()
+    return render_template("index.html", posters=posters, posterID=posterID)
 
 
 @app.route('/editar/<id>', methods=["GET", "POST"])

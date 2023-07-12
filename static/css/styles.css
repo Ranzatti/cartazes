@@ -1,0 +1,96 @@
+.container {
+        width: 90%; /* ou qualquer outra largura desejada */
+        margin-left: auto;
+        margin-right: auto;
+}
+
+.container2 {
+        width: 800px; /* ou qualquer outra largura desejada */
+        margin-left: auto;
+        margin-right: auto;
+}
+
+.delete {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #00000080;
+    z-index: 1;
+    display:flex;
+    justify-content:center;
+    align-items: center;
+    pointer-events: auto;
+ }
+
+.img-200-200 {
+   width: 150px; // a altura se adequa proporcionalmente
+}
+
+session.delete div#card{
+    width: 40rem;
+    position: relative;
+    background-color: #fff;
+    border-radius: .5rem;
+}
+session.delete div#card h4{
+    padding: 2rem;
+    margin:0;
+    color: blue;
+}
+session.delete div#card hr{
+    width: 90%;
+    margin: 0 auto;
+}
+
+session.delete div#card p{
+    text-align:center;
+    font-size:1.5rem;
+}
+
+session.delete div#card p.titulo{
+    text-align:center;
+    font-size:1.5rem;
+    font-weight: bold;
+}
+
+session.delete div#card div#btns{
+    display:flex;
+    justify-content:center;
+    padding: 0 2rem 2rem 2rem;
+}
+
+session.delete div#card div#btns a{
+    text-decoration: none;
+    padding: .9rem;
+    border-radius: .5rem;
+    width: 7rem;
+    text-align:center;
+}
+
+session.delete div#card div#btns a.btn-cancelar{
+    background-color: #fff;
+    color: blue;
+    border: solid 1px blue;
+    margin-right: 1rem;
+    transition: all .5s ease-out;
+}
+
+session.delete div#card div#btns a.btn-cancelar:hover{
+    background-color: blue;
+    color: #fff;
+}
+
+session.delete div#card div#btns a.btn-apagar{
+    background-color: #fff;
+    color: green;
+    border: solid 1px green;
+    margin-right: 1rem;
+    transition: all .5s ease-out;
+ }
+
+ session.delete div#card div#btns a.btn-apagar:hover{
+    background-color: green;
+    color: #fff;
+ }
