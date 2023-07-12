@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Coleção de Cartazes de Filmes</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
+    <style>
+      .container {
+        width: 800px; /* ou qualquer outra largura desejada */
+        margin-left: auto;
+        margin-right: auto;
+      }
+        .img-200-200 {
+           width: 150px; // a altura se adequa proporcionalmente
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <br>
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active" aria-current="page">Cadastro de Cartazes</li>
+        </ol>
+    </nav>
+    <form action="" method="POST" name="meuform">
+        <div class="form-row">
+            <div class="form-group col-md-2">
+                <label for="tmdb">TMDB</label>
+                <input type="text" class="form-control form-control-sm" id="tmdb" name="tmdb" required>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="imdb">IMDB</label>
+                <input type="text" class="form-control form-control-sm" id="imdb" name="imdb" required>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="data_release">Data Release</label>
+                <input type="text" class="form-control form-control-sm" id="data_release" name="data_release" required>
+            </div>
+            <div class="form-group col-md-2">
+                <label for="pagina">Página</label>
+                <input type="text" class="form-control form-control-sm" id="pagina" name="pagina" required>
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="titulo_original">Titulo Original</label>
+                <input type="text" class="form-control form-control-sm" id="titulo_original" name="titulo_original"
+                       required>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="titulo_traduzido">Titulo Traduzido</label>
+                <input type="text" class="form-control form-control-sm" id="titulo_traduzido" name="titulo_traduzido"
+                       required>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="link_imagem">Link Imagem</label>
+            <input type="text" class="form-control form-control-sm" id="link_imagem" name="link_imagem">
+        </div>
+        <div class="form-row">
+            <div class="form-outline col-md-8">
+                <label class="form-label" for="sinopse">Sinopse</label>
+                <textarea class="form-control" rows="7" id="sinopse" name="sinopse"></textarea>
+            </div>
+            <div class="text-center col-md-4">
+                <img src="https://colorindo.org/wp-content/uploads/2022/10/desenhos-de-ponto-de-interrogacao-1.jpg"
+                     class="rounded img-thumbnail img-200-200" alt="..." id="poster">
+            </div>
+        </div>
+        <br>
+        <table>
+            <tr>
+                <td align="center">
+                    <button type="submit" class="btn btn-success">Incluir</button>
+                    <a class="btn btn-primary" href="/" role="button">Voltar</a>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+<script> document.getElementById("tmdb").focus();</script>
+<script>
+        const limparCampos = () => {
+                document.getElementById('titulo_original').value = '';
+                document.getElementById('titulo_traduzido').value = '';
+                document.getElementById('imdb').value = '';
+                document.getElementById('data_release').value = '';
+                document.getElementById('sinopse').value = '';
+                document.getElementById('link_imagem').value = '';
+                document.getElementById('poster').setAttribute('src', 'https://colorindo.org/wp-content/uploads/2022/10/desenhos-de-ponto-de-interrogacao-1.jpg');
+        }
+
+        const pesquisaImdb = async () => {
+           limparCampos();
+           const tmdb = document.getElementById('tmdb').value;
+           const url = `https://api.themoviedb.org/3/movie/${tmdb}?api_key=2b0120b7e901bbe70b631b2273fe28c9&language=pt-BR&include_adult=false`
+           const dados = await fetch(url);
+           const elemento = await dados.json();
+           if(elemento.hasOwnProperty('success') ){
+                document.getElementById('tmdb').value = -1;
+           } else {
+                document.getElementById('titulo_original').value = elemento.original_title;
+                document.getElementById('titulo_traduzido').value = elemento.title;
+                document.getElementById('imdb').value = elemento.imdb_id;
+                document.getElementById('data_release').value = elemento.release_date;
+                document.getElementById('sinopse').value = elemento.overview;
+                document.getElementById('link_imagem').value = `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${elemento.poster_path}`;
+                document.getElementById('poster').setAttribute('src',`https://www.themoviedb.org/t/p/w600_and_h900_bestv2${elemento.poster_path}`);
+           }
+        }
+
+        const imdb =  document.getElementById('tmdb').addEventListener('focusout', pesquisaImdb );
+
+
+</script>
+</body>
+</html>

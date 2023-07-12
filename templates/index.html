@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <title>Coleção de Cartazes de Filmes</title>
+    <meta charset="utf-8">
+    <!--    <link rel="stylesheet" type="text/css"-->
+    <!--          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" type="text/css"
+          href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap.min.css">
+    <style>
+      .container {
+        width: 90%; /* ou qualquer outra largura desejada */
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+
+    </style>
+</head>
+
+<body>
+<br>
+<div class="container">
+    <div class="form-row">
+        <div class="form-group col-md-10">
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item active" aria-current="page">Coleção de Cartazes de Filmes</li>
+                </ol>
+            </nav>
+        </div>
+        <div align="right" class="form-group col-md-2">
+            <a class="btn btn-success" href="/novo" role="button">Novo Cartaz</a>
+        </div>
+    </div>
+    <table id="myTable" class="table table-hover table-bordered table-sm" style="width:100%">
+        <thead class="table-dark">
+        <tr>
+            <th scope="col">Ano</th>
+            <th scope="col">Titulo Original</th>
+            <th scope="col">Titulo Traduzido</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for poster in posters %}
+        <tr>
+            <td>{{ poster.ano }}</td>
+            <td><a href="https://www.imdb.com/title/{{ poster.imdb }}/" target="_blank">{{ poster.titulo_original }}</a>
+            </td>
+            <td>{{ poster.titulo_traduzido }}</td>
+            <td align="center"><a href="/editar/{{ poster.id }}"><i class="glyphicon glyphicon-pencil"></i></a></td>
+            <td align="center"><a href="/{{ poster.id }}" data-toggle="modal" data-target="#excluiModal">
+                <i class="glyphicon glyphicon-trash" style="color:red"></i></a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap.min.js"></script>
+
+    <script>
+    $(document).ready(function() {
+      $('#myTable').DataTable({
+        "lengthMenu": [[10, 20, 50, 100, -1], [10, 20, 50, 100,"Todos"]], // Opções de exibição de registros por página, incluindo a opção "Todos"
+        "pageLength": 10, // Registros exibidos por padrão
+        "order": [[1, "asc"]],
+        "aoColumns": [
+        { "bSortable": true },
+        { "bSortable": true },
+        { "bSortable": true },
+        { "bSortable": false },
+        { "bSortable": false }], // Classificar por coluna 0 (Nome) em ordem ascendente
+        "language": {
+          "lengthMenu": "Exibir _MENU_ registros por página",
+          "zeroRecords": "Nenhum registro encontrado",
+          "info": "Página _PAGE_ de _PAGES_",
+          "infoEmpty": "Nenhum registro disponível",
+          "infoFiltered": "(filtrado de _MAX_ registros no total)",
+          "search": "Pesquisar:",
+          "paginate": {
+            "first": "Primeiro",
+            "last": "Último",
+            "next": "Próximo",
+            "previous": "Anterior"
+          }
+        }
+      });
+    });
+
+    </script>
+</div>
+
+<!-- Modal delete -->
+{% if posterID != undefinied %}
+<div class="modal fade" id="excluiModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalCenterTitle">Exclusão de Poster</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Deseja Realmente excluir o poster {{posterID.titulo_traduzido}} ?</p>
+      </div>
+      <div class="modal-footer">
+          <a class="btn btn-secondary" href="/">Cancelar</a>
+          <a class="btn btn-primary" href="/excluir/{{posterID.id}}">Confirmar</a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+
+</body>
+</html>
