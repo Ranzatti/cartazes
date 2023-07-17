@@ -37,16 +37,9 @@ class Posters(db.Model):
 @app.route('/')
 def index():
     # posters = Posters.query.order_by("ano").all()
-    # posters = Posters.query.order_by(Posters.ano.asc()).all()
-    posters = Posters.query.filter(Posters.tmdb < 0).all()
+    posters = Posters.query.order_by(Posters.titulo_original.asc()).all()
+    # posters = Posters.query.filter(Posters.tmdb < 0).all()
     return render_template("index.html", posters=posters)
-
-
-@app.route("/<id>")
-def modal(id):
-    posterID = Posters.query.filter_by(id=id).first()
-    posters = Posters.query.filter(Posters.tmdb < 0).all()
-    return render_template("index.html", posters=posters, posterID=posterID)
 
 
 @app.route('/editar/<id>', methods=["GET", "POST"])

@@ -51,8 +51,7 @@
             </td>
             <td>{{ poster.titulo_traduzido }}</td>
             <td align="center"><a href="/editar/{{ poster.id }}"><i class="glyphicon glyphicon-pencil"></i></a></td>
-            <td align="center"><a href="/{{ poster.id }}">
-                <i class="glyphicon glyphicon-trash" style="color:red"></i></a></td>
+            <td align="center"><a href="/excluir//{{ poster.id }}"><i class="glyphicon glyphicon-trash" style="color:red"></i></a></td>
         </tr>
         {% endfor %}
         </tbody>
@@ -66,7 +65,7 @@
     $(document).ready(function() {
       $('#myTable').DataTable({
         "lengthMenu": [[10, 20, 50, 100, -1], [10, 20, 50, 100,"Todos"]], // Opções de exibição de registros por página, incluindo a opção "Todos"
-        "pageLength": 10, // Registros exibidos por padrão
+        "pageLength": 50, // Registros exibidos por padrão
         "order": [[1, "asc"]],
         "aoColumns": [
         { "bSortable": true },
@@ -94,21 +93,5 @@
 
     </script>
 </div>
-
-{% if posterID != undefined %}
-<session class="delete">
-    <div id="card">
-        <p></p>
-        <hr>
-        <p>Deseja realmente excluir o poster</p>
-        <p class="titulo">{{posterID.titulo_original}}</p>
-        <div id="btns">
-            <a class="btn-cancelar" href="/">Cancelar</a>
-            <a class="btn-apagar" href="/excluir/{{posterID.id}}">Ok</a>
-        </div>
-    </div>
-</session>
-{% endif %}
-
 </body>
 </html>
