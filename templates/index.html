@@ -13,9 +13,6 @@
 
     <link rel="stylesheet" type="text/css"
           href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap.min.css">
-    <style>
-
-    </style>
 </head>
 
 <body>
@@ -51,7 +48,7 @@
             </td>
             <td>{{ poster.titulo_traduzido }}</td>
             <td align="center"><a href="/editar/{{ poster.id }}"><i class="glyphicon glyphicon-pencil"></i></a></td>
-            <td align="center"><a href="/excluir//{{ poster.id }}"><i class="glyphicon glyphicon-trash" style="color:red"></i></a></td>
+            <td align="center"><a href="/excluir//{{ poster.id }}"><i class="glyphicon glyphicon-trash" style="color:red" onclick="return confirm ('Tem certeza que deseja apagar?')"></i></a></td>
         </tr>
         {% endfor %}
         </tbody>
@@ -66,7 +63,7 @@
       $('#myTable').DataTable({
         "lengthMenu": [[10, 20, 50, 100, -1], [10, 20, 50, 100,"Todos"]], // Opções de exibição de registros por página, incluindo a opção "Todos"
         "pageLength": 50, // Registros exibidos por padrão
-        "order": [[1, "asc"]],
+        "order": [[0, "asc"]],
         "aoColumns": [
         { "bSortable": true },
         { "bSortable": true },

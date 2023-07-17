@@ -28,3 +28,9 @@ const pesquisaImdb = async () => {
 }
 
 const imdb =  document.getElementById('tmdb').addEventListener('focusout', pesquisaImdb );
+
+
+const troca_imagem = async () => {
+    document.getElementById("poster").src = document.getElementById("link_imagem").value ;
+}
+document.getElementById('link_imagem').addEventListener('focusout', troca_imagem );

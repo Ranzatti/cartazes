@@ -1,85 +1,73 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Coleção de Cartazes de Filmes</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css">
-    <script src="{{ url_for('static', filename='js/api.js') }}" defer></script>
-</head>
-<body>
-<div class="container2">
-    <br>
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page">Atualização de Cartazes</li>
-        </ol>
-    </nav>
-    <form action="" method="POST" name="meuform">
-        <div class="form-row">
-            <div class="form-group col-md-2">
-                <label for="tmdb">TMDB</label>
-                <input type="text" class="form-control form-control-sm" id="tmdb" name="tmdb" required
-                       value="{{poster.tmdb}}">
-            </div>
-            <div class="form-group col-md-2">
-                <label for="imdb">IMDB</label>
-                <input type="text" class="form-control form-control-sm" id="imdb" name="imdb" required
-                       value="{{poster.imdb}}">
-            </div>
-            <div class="form-group col-md-2">
-                <label for="data_release">Data Release</label>
-                <input type="text" class="form-control form-control-sm" id="data_release" name="data_release" required
-                       value="{{poster.data_release}}">
-            </div>
-            <div class="form-group col-md-2">
-                <label for="pagina">Página</label>
-                <input type="text" class="form-control form-control-sm" id="pagina" name="pagina" required
-                       value="{{poster.pagina}}">
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label for="titulo_original">Titulo Original</label>
-                <input type="text" class="form-control form-control-sm" id="titulo_original" name="titulo_original"
-                       required value="{{poster.titulo_original}}">
-            </div>
-            <div class="form-group col-md-6">
-                <label for="titulo_traduzido">Titulo Traduzido</label>
-                <input type="text" class="form-control form-control-sm" id="titulo_traduzido" name="titulo_traduzido"
-                       required value="{{poster.titulo_traduzido}}">
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="link_imagem">Link Imagem</label>
-            <input type="text" class="form-control form-control-sm" id="link_imagem" name="link_imagem"
-                   value="{{poster.link_imagem}}">
-        </div>
-        <div class="form-row">
-            <div class="form-outline col-md-8">
-                <label class="form-label" for="sinopse">Sinopse</label>
-                <textarea class="form-control" rows="7" id="sinopse" name="sinopse">{{poster.sinopse}}</textarea>
-            </div>
-            <div class="text-center col-md-4">
-                <img src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2{{poster.link_imagem}}"
-                     class="rounded img-thumbnail img-200-200" alt="..." id="poster">
-            </div>
-        </div>
-        <br>
-        <table>
-            <tr>
-                <td align="center">
-                    <button type="submit" class="btn btn-success">Atualizar</button>
-                    <a class="btn btn-primary" href="/" role="button">Voltar</a>
-                </td>
-            </tr>
-        </table>
-    </form>
+{% extends 'layout.html' %}
+
+{% block title %}
+Editar Poster
+{% endblock %}
+
+{% block conteudo %}
+<div class="form-row">
+    <div class="form-group col-md-2">
+        <label for="tmdb">TMDB</label>
+        <input type="text" class="form-control form-control-sm" id="tmdb" name="tmdb" required
+               value="{{poster.tmdb}}">
+    </div>
+    <div class="form-group col-md-2">
+        <label for="imdb">IMDB</label>
+        <input type="text" class="form-control form-control-sm" id="imdb" name="imdb" required
+               value="{{poster.imdb}}">
+    </div>
+    <div class="form-group col-md-2">
+        <label for="data_release">Data Release</label>
+        <input type="text" class="form-control form-control-sm" id="data_release" name="data_release" required
+               value="{{poster.data_release}}">
+    </div>
+    <div class="form-group col-md-2">
+        <label for="pagina">Página</label>
+        <input type="text" class="form-control form-control-sm" id="pagina" name="pagina" required pattern="[0-9]+$"
+               value="{{poster.pagina}}">
+    </div>
 </div>
+<div class="form-row">
+    <div class="form-group col-md-6">
+        <label for="titulo_original">Titulo Original</label>
+        <input type="text" class="form-control form-control-sm" id="titulo_original" name="titulo_original"
+               required value="{{poster.titulo_original}}">
+    </div>
+    <div class="form-group col-md-6">
+        <label for="titulo_traduzido">Titulo Traduzido</label>
+        <input type="text" class="form-control form-control-sm" id="titulo_traduzido" name="titulo_traduzido"
+               required value="{{poster.titulo_traduzido}}">
+    </div>
+</div>
+<div class="form-group">
+    <label for="link_imagem">Link Imagem</label>
+    <input type="text" class="form-control form-control-sm" id="link_imagem" name="link_imagem"
+           value="{{poster.link_imagem}}">
+</div>
+<div class="form-row">
+    <div class="form-outline col-md-8">
+        <label class="form-label" for="sinopse">Sinopse</label>
+        <textarea class="form-control" rows="7" id="sinopse" name="sinopse">{{poster.sinopse}}</textarea>
+    </div>
+    <div class="text-center col-md-4">
+        <img src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2{{poster.link_imagem}}"
+             class="rounded img-thumbnail img-200-200" alt="..." id="poster">
+    </div>
+</div>
+<br>
+<table>
+    <tr>
+        <td align="center">
+            <button type="submit" class="btn btn-success">Atualizar</button>
+            <a class="btn btn-primary" href="/" role="button">Voltar</a>
+        </td>
+    </tr>
+</table>
+{% endblock %}
+
+{% block script %}
 <script>
     document.getElementById("titulo_original").focus();
     document.getElementById("titulo_original").select();
-
 </script>
-</body>
-</html>
+{% endblock %}
