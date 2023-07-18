@@ -1,5 +1,11 @@
-from connection import db
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
 
+app = Flask(__name__)
+app.config[
+    'SQLALCHEMY_DATABASE_URI'] = 'postgresql://snrmyrdk:WdWoPvt6qtVm9uq8V93rSYGKkf3WW-nt@tuffi.db.elephantsql.com/snrmyrdk'
+
+db = SQLAlchemy(app)
 
 class Posters(db.Model):
     __tablename__ = 'poster'
@@ -27,34 +33,33 @@ class Posters(db.Model):
         self.sinopse = sinopse
 
     def salva(id, tmdb, imdb, titulo_original, titulo_traduzido, pagina, data_release, link_imagem, sinopse):
-        if int(tmdb) > 0:
-            poster = Posters.query.filter_by(id=id).first()
-            if poster:
-                poster.tmdb = tmdb
-                poster.imdb = imdb
-                poster.titulo_original = titulo_original.upper()
-                poster.titulo_traduzido = titulo_traduzido.upper()
-                poster.pagina = int(pagina)
-                poster.data_release = data_release
-                poster.ano = int(poster.data_release[0:4])
-                poster.link_imagem = link_imagem
-                poster.sinopse = sinopse
-            else:
-                ano = int(data_release[0:4])
-                poster = Posters(
-                    tmdb,
-                    imdb,
-                    titulo_original.upper(),
-                    titulo_traduzido.upper(),
-                    ano,
-                    pagina,
-                    data_release,
-                    link_imagem,
-                    sinopse)
-            db.session.add(poster)
-            db.session.commit()
-            return True
-        return False
+
+        ano = int(data_release[0:4])
+        poster = Posters.query.filter_by(id=id).first()
+        if poster:
+            poster.tmdb = tmdb
+            poster.imdb = imdb
+            poster.titulo_original = titulo_original.upper()
+            poster.titulo_traduzido = titulo_traduzido.upper()
+            poster.pagina = int(pagina)
+            poster.data_release = data_release
+            poster.ano = ano
+            poster.link_imagem = link_imagem
+            poster.sinopse = sinopse
+        else:
+            poster = Posters(
+                tmdb,
+                imdb,
+                titulo_original.upper(),
+                titulo_traduzido.upper(),
+                ano,
+                pagina,
+                data_release,
+                link_imagem,
+                sinopse)
+        db.session.add(poster)
+        db.session.commit()
+        return True
 
     def getByID(id):
         return Posters.query.filter_by(id=id).first()

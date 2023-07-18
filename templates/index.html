@@ -48,7 +48,7 @@
             </td>
             <td>{{ poster.titulo_traduzido }}</td>
             <td align="center"><a href="/editar/{{ poster.id }}"><i class="glyphicon glyphicon-pencil"></i></a></td>
-            <td align="center"><a href="/excluir//{{ poster.id }}"><i class="glyphicon glyphicon-trash" style="color:red" onclick="return confirm ('Tem certeza que deseja apagar?')"></i></a></td>
+            <td align="center"><a href="/excluir//{{ poster.id }}"><i class="glyphicon glyphicon-trash" style="color:red" onclick="return confirm ('Tem certeza que deseja apagar o filme \n\n {{ poster.titulo_original }} \n {{ poster.titulo_traduzido }} ?')"></i></a></td>
         </tr>
         {% endfor %}
         </tbody>
