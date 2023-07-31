@@ -5,7 +5,6 @@
     <meta charset="utf-8">
     <!--    <link rel="stylesheet" type="text/css"-->
     <!--          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
-
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css')}}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -13,42 +12,97 @@
 
     <link rel="stylesheet" type="text/css"
           href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap.min.css">
-</head>
+    <style>
+          .table.dataTable  {
+            font-size: 12px;
+        }
 
+    </style>
+</head>
 <body>
 <br>
 <div class="container">
-    <div class="form-row">
-        <div class="form-group col-md-10">
-            <nav aria-label="breadcrumb">
+    <div class="form-group col-md-9">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">Coleção de Cartazes de Filmes</li>
+            </ol>
+        </nav>
+    </div>
+    <div align="right" class="form-group col-md-2">
+        <a class="btn btn-success" href="/novo" role="button">Novo Cartaz</a>
+    </div>
+    <p>
+        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
+           aria-controls="collapseExample">
+            Filtrar
+        </a>
+    </p>
+    <div class="collapse" id="collapseExample">
+        <div class="card card-body">
+            <div class="form-group col-md-12">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item active" aria-current="page">Coleção de Cartazes de Filmes</li>
+                    <form action="" method="POST" name="meuform">
+                        <div class="form-row">
+                            <div class="form-group col-md-1">
+                                <label for="pasta">Pasta</label>
+                                <input type="text" class="form-control form-control-sm" id="pasta" name="pasta"
+                                       pattern="[0-9]+$">
+                            </div>
+                            <div class="form-group col-md-1">
+                                <label for="pagina">Página</label>
+                                <input type="text" class="form-control form-control-sm" id="pagina" name="pagina"
+                                       pattern="[0-9]+$">
+                            </div>
+                            <div class="form-group col-md-1">
+                                <label for="ano">Ano</label>
+                                <input type="text" class="form-control form-control-sm" id="ano" name="ano"
+                                       pattern="[0-9]+$">
+                            </div>
+                            <div class="form-group col-md-2">
+                                <label for="cores">Cores</label>
+                                <select id="cores" class="form-control" name="cores">
+                                    <option value="todos" selected>Todos</option>
+                                    <option value="preto_branco">Preto & Branco</option>
+                                    <option value="cores">Cores</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-success">Buscar</button>
+                        <a class="btn btn-success" href="/" role="button">Limpar</a>
+                    </form>
                 </ol>
-            </nav>
-        </div>
-        <div align="right" class="form-group col-md-2">
-            <a class="btn btn-success" href="/novo" role="button">Novo Cartaz</a>
+            </div>
         </div>
     </div>
+
     <table id="myTable" class="table table-hover table-bordered table-sm" style="width:100%">
         <thead class="table-dark">
         <tr>
-            <th scope="col">Ano</th>
+            <th scope="col" style="width: 2rem;">Ano</th>
             <th scope="col">Titulo Original</th>
             <th scope="col">Titulo Traduzido</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
+            <th scope="col" style="width: 2rem;">Pasta</th>
+            <th scope="col" style="width: 2rem;">Página</th>
+            <th scope="col" style="width: 1rem;"></th>
+            <th scope="col" style="width: 1rem;"></th>
         </tr>
         </thead>
         <tbody>
         {% for poster in posters %}
         <tr>
-            <td>{{ poster.ano }}</td>
-            <td><a href="https://www.imdb.com/title/{{ poster.imdb }}/" target="_blank">{{ poster.titulo_original }}</a>
-            </td>
+            <td align="center">{{ poster.ano }}</td>
+            <td><a href="https://www.themoviedb.org/movie/{{ poster.tmdb }}/"
+                   target="_blank">{{poster.titulo_original}}</a></td>
             <td>{{ poster.titulo_traduzido }}</td>
+            <td align="center">{{ poster.pasta }}</td>
+            <td align="center">{{ poster.pagina }}</td>
             <td align="center"><a href="/editar/{{ poster.id }}"><i class="glyphicon glyphicon-pencil"></i></a></td>
-            <td align="center"><a href="/excluir//{{ poster.id }}"><i class="glyphicon glyphicon-trash" style="color:red" onclick="return confirm ('Tem certeza que deseja apagar o filme \n\n {{ poster.titulo_original }} \n {{ poster.titulo_traduzido }} ?')"></i></a></td>
+            <td align="center"><a href="/excluir//{{ poster.id }}"><i class="glyphicon glyphicon-trash"
+                                                                      style="color:red"
+                                                                      onclick="return confirm ('Tem certeza que deseja apagar o filme \n\n {{ poster.titulo_original }} \n {{ poster.titulo_traduzido }} ?')"></i></a>
+            </td>
         </tr>
         {% endfor %}
         </tbody>
@@ -62,9 +116,11 @@
     $(document).ready(function() {
       $('#myTable').DataTable({
         "lengthMenu": [[10, 20, 50, 100, -1], [10, 20, 50, 100,"Todos"]], // Opções de exibição de registros por página, incluindo a opção "Todos"
-        "pageLength": 50, // Registros exibidos por padrão
+        "pageLength": 20, // Registros exibidos por padrão
         "order": [[0, "asc"]],
         "aoColumns": [
+        { "bSortable": true },
+        { "bSortable": true },
         { "bSortable": true },
         { "bSortable": true },
         { "bSortable": true },
@@ -73,7 +129,7 @@
         "language": {
           "lengthMenu": "Exibir _MENU_ registros por página",
           "zeroRecords": "Nenhum registro encontrado",
-          "info": "Página _PAGE_ de _PAGES_",
+          "info": "Página _PAGE_ de _PAGES_ (_TOTAL_ registros)",
           "infoEmpty": "Nenhum registro disponível",
           "infoFiltered": "(filtrado de _MAX_ registros no total)",
           "search": "Pesquisar:",
@@ -86,6 +142,29 @@
         }
       });
     });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     </script>

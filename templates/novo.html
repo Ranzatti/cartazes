@@ -8,41 +8,107 @@ Cadastrar Poster
 <div class="form-row">
     <div class="form-group col-md-2">
         <label for="tmdb">TMDB</label>
-        <input type="text" class="form-control form-control-sm" id="tmdb" name="tmdb" required>
+        <input style="text-align:center;"
+               type="number"
+               class="form-control form-control-sm"
+               id="tmdb"
+               name="tmdb"
+               required>
     </div>
     <div class="form-group col-md-2">
         <label for="imdb">IMDB</label>
-        <input type="text" class="form-control form-control-sm" id="imdb" name="imdb" required>
+        <input style="text-align:center;"
+               type="text"
+               class="form-control form-control-sm"
+               id="imdb"
+               name="imdb"
+               required>
     </div>
     <div class="form-group col-md-2">
         <label for="data_release">Data Release</label>
-        <input type="text" class="form-control form-control-sm" id="data_release" name="data_release" required>
+        <input style="text-align:center;"
+               type="date"
+               class="form-control form-control-sm"
+               id="data_release"
+               name="data_release"
+               required>
     </div>
-    <div class="form-group col-md-2">
+    <div class="form-group col-md-1">
+        <label for="pasta">Pasta</label>
+        <input style="text-align:center;"
+               type="number"
+               class="form-control form-control-sm"
+               id="pasta"
+               name="pasta"
+               pattern="[0-9]+$"
+               required >
+    </div>
+    <div class="form-group col-md-1">
         <label for="pagina">Página</label>
-        <input type="text" class="form-control form-control-sm" id="pagina" name="pagina" required pattern="[0-9]+$">
+        <input style="text-align:center;"
+               type="number"
+               class="form-control form-control-sm"
+               id="pagina"
+               name="pagina"
+               pattern="[0-9]+$"
+               required >
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input"
+               type="radio"
+               name="exampleRadios"
+               id="exampleRadios1"
+               value="option1"
+               checked>
+        <label class="form-check-label" for="exampleRadios1">
+            Preto & Branco
+        </label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input"
+               type="radio"
+               name="exampleRadios"
+               id="exampleRadios2"
+               value="option2">
+        <label class="form-check-label" for="exampleRadios2">
+            Colorido
+        </label>
     </div>
 </div>
 <div class="form-row">
     <div class="form-group col-md-6">
         <label for="titulo_original">Titulo Original</label>
-        <input type="text" class="form-control form-control-sm" id="titulo_original" name="titulo_original"
+        <input type="text"
+               class="form-control form-control-sm"
+               id="titulo_original"
+               name="titulo_original"
+               oninput="this.value = this.value.toUpperCase()"
                required>
     </div>
     <div class="form-group col-md-6">
         <label for="titulo_traduzido">Titulo Traduzido</label>
-        <input type="text" class="form-control form-control-sm" id="titulo_traduzido" name="titulo_traduzido"
+        <input type="text"
+               class="form-control form-control-sm"
+               id="titulo_traduzido"
+               name="titulo_traduzido"
+               oninput="this.value = this.value.toUpperCase()"
                required>
     </div>
 </div>
 <div class="form-group">
     <label for="link_imagem">Link Imagem</label>
-    <input type="text" class="form-control form-control-sm" id="link_imagem" name="link_imagem">
+    <input type="text"
+           class="form-control form-control-sm"
+           id="link_imagem"
+           name="link_imagem">
 </div>
 <div class="form-row">
     <div class="form-outline col-md-8">
         <label class="form-label" for="sinopse">Sinopse</label>
-        <textarea class="form-control" rows="7" id="sinopse" name="sinopse"></textarea>
+        <textarea class="form-control"
+                  rows="7"
+                  id="sinopse"
+                  name="sinopse"></textarea>
     </div>
     <div class="text-center col-md-4">
         <img src="https://colorindo.org/wp-content/uploads/2022/10/desenhos-de-ponto-de-interrogacao-1.jpg"

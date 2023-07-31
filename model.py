@@ -17,23 +17,26 @@ class Posters(db.Model):
     titulo_traduzido = db.Column(db.String)
     ano = db.Column(db.Integer)
     pagina = db.Column(db.Integer)
+    pasta = db.Column(db.Integer)
     data_release = db.Column(db.String)
     link_imagem = db.Column(db.String)
     sinopse = db.Column(db.String)
+    cores = db.Column(db.String)
 
-    def __init__(self, tmdb, imdb, titulo_original, titulo_traduzido, ano, pagina, data_release, link_imagem, sinopse):
+    def __init__(self, tmdb, imdb, titulo_original, titulo_traduzido, ano, pagina, pasta, data_release, link_imagem, sinopse, cores):
         self.tmdb = tmdb
         self.imdb = imdb
         self.titulo_original = titulo_original
         self.titulo_traduzido = titulo_traduzido
         self.ano = ano
         self.pagina = pagina
+        self.pasta = pasta
         self.data_release = data_release
         self.link_imagem = link_imagem
         self.sinopse = sinopse
+        self.cores = cores
 
-    def salva(id, tmdb, imdb, titulo_original, titulo_traduzido, pagina, data_release, link_imagem, sinopse):
-
+    def salva(id, tmdb, imdb, titulo_original, titulo_traduzido, pagina, pasta, data_release, link_imagem, sinopse,  cores):
         ano = int(data_release[0:4])
         poster = Posters.query.filter_by(id=id).first()
         if poster:
@@ -42,10 +45,12 @@ class Posters(db.Model):
             poster.titulo_original = titulo_original.upper()
             poster.titulo_traduzido = titulo_traduzido.upper()
             poster.pagina = int(pagina)
+            poster.pasta = int(pasta)
             poster.data_release = data_release
             poster.ano = ano
             poster.link_imagem = link_imagem
             poster.sinopse = sinopse
+            poster.cores = cores
         else:
             poster = Posters(
                 tmdb,
@@ -54,9 +59,11 @@ class Posters(db.Model):
                 titulo_traduzido.upper(),
                 ano,
                 pagina,
+                pasta,
                 data_release,
                 link_imagem,
-                sinopse)
+                sinopse,
+                cores)
         db.session.add(poster)
         db.session.commit()
         return True
@@ -66,8 +73,8 @@ class Posters(db.Model):
 
     def getAll():
         posters = Posters.query.order_by("ano").all()
+        # posters = Posters.query.order_by("ano").limit(30).all()
         # posters = Posters.query.order_by(Posters.titulo_original.asc()).all()
-        # posters = Posters.query.filter(Posters.tmdb < 0).all()
         return posters
 
     def exclui(id):

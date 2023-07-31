@@ -8,46 +8,117 @@ Editar Poster
 <div class="form-row">
     <div class="form-group col-md-2">
         <label for="tmdb">TMDB</label>
-        <input type="text" class="form-control form-control-sm" id="tmdb" name="tmdb" required
-               value="{{poster.tmdb}}">
+        <input style="text-align:center;"
+               type="number"
+               class="form-control form-control-sm"
+               id="tmdb"
+               name="tmdb"
+               value="{{poster.tmdb}}"
+               required>
     </div>
     <div class="form-group col-md-2">
         <label for="imdb">IMDB</label>
-        <input type="text" class="form-control form-control-sm" id="imdb" name="imdb" required
-               value="{{poster.imdb}}">
+        <input style="text-align:center;"
+               type="text"
+               class="form-control form-control-sm"
+               id="imdb"
+               name="imdb"
+               value="{{poster.imdb}}"
+               required>
     </div>
     <div class="form-group col-md-2">
         <label for="data_release">Data Release</label>
-        <input type="text" class="form-control form-control-sm" id="data_release" name="data_release" required
+        <input style="text-align:center;"
+               type="date"
+               class="form-control form-control-sm"
+               id="data_release"
+               name="data_release"
                value="{{poster.data_release}}">
     </div>
-    <div class="form-group col-md-2">
+    <div class="form-group col-md-1">
+        <label for="pasta">Pasta</label>
+        <input style="text-align:center;"
+               type="number"
+               class="form-control form-control-sm"
+               id="pasta"
+               name="pasta"
+               pattern="[0-9]+$"
+               value="{{poster.pasta}}"
+               required>
+    </div>
+    <div class="form-group col-md-1">
         <label for="pagina">Página</label>
-        <input type="text" class="form-control form-control-sm" id="pagina" name="pagina" required pattern="[0-9]+$"
-               value="{{poster.pagina}}">
+        <input style="text-align:center;"
+               type="number"
+               class="form-control form-control-sm"
+               id="pagina"
+               name="pagina"
+               pattern="[0-9]+$"
+               value="{{poster.pagina}}"
+               required>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input"
+               type="radio"
+               name="cores"
+               id="preto_branco"
+               value="preto_branco"
+               {% if poster.cores=='preto_branco' %}
+               checked
+               {% endif %}>
+        <label class="form-check-label" for="preto_branco">
+            Preto & Branco
+        </label>
+    </div>
+    <div class="form-check form-check-inline">
+        <input class="form-check-input"
+               type="radio"
+               name="cores"
+               id="cores"
+               value="cores"
+               {% if poster.cores=='cores' %}
+               checked
+               {% endif %}>
+        <label class="form-check-label" for="cores">
+            Colorido
+        </label>
     </div>
 </div>
 <div class="form-row">
     <div class="form-group col-md-6">
         <label for="titulo_original">Titulo Original</label>
-        <input type="text" class="form-control form-control-sm" id="titulo_original" name="titulo_original"
+        <input type="text"
+               class="form-control form-control-sm"
+               id="titulo_original"
+               name="titulo_original"
+               oninput="this.value = this.value.toUpperCase()"
                required value="{{poster.titulo_original}}">
     </div>
     <div class="form-group col-md-6">
         <label for="titulo_traduzido">Titulo Traduzido</label>
-        <input type="text" class="form-control form-control-sm" id="titulo_traduzido" name="titulo_traduzido"
+        <input type="text"
+               class="form-control form-control-sm"
+               id="titulo_traduzido"
+               name="titulo_traduzido"
+               oninput="this.value = this.value.toUpperCase()"
                required value="{{poster.titulo_traduzido}}">
     </div>
 </div>
 <div class="form-group">
     <label for="link_imagem">Link Imagem</label>
-    <input type="text" class="form-control form-control-sm" id="link_imagem" name="link_imagem"
+    <input type="url"
+           class="form-control form-control-sm"
+           id="link_imagem"
+           name="link_imagem"
            value="{{poster.link_imagem}}">
 </div>
 <div class="form-row">
     <div class="form-outline col-md-8">
         <label class="form-label" for="sinopse">Sinopse</label>
-        <textarea class="form-control" rows="7" id="sinopse" name="sinopse">{{poster.sinopse}}</textarea>
+        <textarea class="form-control"
+                  rows="7"
+                  id="sinopse"
+                  name="sinopse">{{poster.sinopse}}</textarea>
     </div>
     <div class="text-center col-md-4">
         <img src="https://www.themoviedb.org/t/p/w600_and_h900_bestv2{{poster.link_imagem}}"

@@ -2,11 +2,31 @@ from flask import render_template, request, url_for, redirect
 from model import app, Posters
 
 
-@app.route('/')
-@app.route("/index")
+@app.route('/', methods=["GET", "POST"])
 def index():
-    posters = Posters.getAll()
-    return render_template("index.html", posters=posters)
+    if request.method == "GET":
+        posters = Posters.getAll()
+        return render_template("index.html", posters=posters)
+    if request.method == "POST":
+        pagina = request.form.get("pagina")
+        pasta = request.form.get("pasta")
+        ano = request.form.get("ano")
+        cores = request.form.get("cores")
+
+        posters = Posters.query.filter(1 == 1)
+
+        if pagina:
+            posters = posters.filter(Posters.pagina == pagina)
+        if pasta:
+            posters = posters.filter(Posters.pasta == pasta)
+        if ano:
+            posters = posters.filter(Posters.ano == ano)
+        if cores != "todos":
+            posters = posters.filter(Posters.cores == cores)
+
+        posters = posters.all()
+
+        return render_template("index.html", posters=posters)
 
 
 @app.route('/editar/<id>', methods=["GET", "POST"])
@@ -20,9 +40,11 @@ def editar(id):
             request.form.get("titulo_original"),
             request.form.get("titulo_traduzido"),
             request.form.get("pagina"),
+            request.form.get("pasta"),
             request.form.get("data_release"),
             request.form.get("link_imagem"),
-            request.form.get("sinopse")
+            request.form.get("sinopse"),
+            request.form.get("cores")
         )
         return redirect(url_for("index"))
     return render_template("editar.html", poster=poster)
@@ -38,9 +60,11 @@ def novo():
             request.form.get("titulo_original"),
             request.form.get("titulo_traduzido"),
             request.form.get("pagina"),
+            request.form.get("pasta"),
             request.form.get("data_release"),
             request.form.get("link_imagem"),
-            request.form.get("sinopse")
+            request.form.get("sinopse"),
+            request.form.get("cores")
         )
         return redirect(url_for("index"))
     return render_template("novo.html")

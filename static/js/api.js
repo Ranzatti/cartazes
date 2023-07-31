@@ -1,3 +1,5 @@
+
+//  pegar dados dos filmes pelo TMDB
 const limparCampos = () => {
         document.getElementById('titulo_original').value = '';
         document.getElementById('titulo_traduzido').value = '';
@@ -17,8 +19,8 @@ const pesquisaImdb = async () => {
    if(elemento.hasOwnProperty('success') ){
         document.getElementById('tmdb').value = -1;
    } else {
-        document.getElementById('titulo_original').value = elemento.original_title;
-        document.getElementById('titulo_traduzido').value = elemento.title;
+        document.getElementById('titulo_original').value = elemento.original_title.toUpperCase();
+        document.getElementById('titulo_traduzido').value = elemento.title.toUpperCase();
         document.getElementById('imdb').value = elemento.imdb_id;
         document.getElementById('data_release').value = elemento.release_date;
         document.getElementById('sinopse').value = elemento.overview;
@@ -28,9 +30,17 @@ const pesquisaImdb = async () => {
 }
 
 const imdb =  document.getElementById('tmdb').addEventListener('focusout', pesquisaImdb );
-
+// ate aqui
 
 const troca_imagem = async () => {
     document.getElementById("poster").src = document.getElementById("link_imagem").value ;
 }
 document.getElementById('link_imagem').addEventListener('focusout', troca_imagem );
+
+// Mascara de Data
+//const element = document.getElementById('data_release');
+//const maskOptions = {
+//  mask: '0000-00-00'
+//};
+//const mask = IMask(element, maskOptions);
+// ate aqui
