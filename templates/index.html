@@ -13,8 +13,14 @@
     <link rel="stylesheet" type="text/css"
           href="https://cdn.datatables.net/1.13.5/css/dataTables.bootstrap.min.css">
     <style>
-          .table.dataTable  {
-            font-size: 12px;
+        .table.dataTable  {
+          font-size: 12px;
+      }
+        .red {
+        color: red;
+        }
+        .green {
+        color: green;
         }
 
     </style>
@@ -25,17 +31,23 @@
     <div class="form-group col-md-9">
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item active" aria-current="page">Coleção de Cartazes de Filmes</li>
+                <li class="breadcrumb-item active"
+                    aria-current="page">Coleção de Cartazes de Filmes</li>
             </ol>
         </nav>
     </div>
     <div align="right" class="form-group col-md-2">
-        <a class="btn btn-success" href="/novo" role="button">Novo Cartaz</a>
+        <a class="btn btn-success"
+           href="/novo"
+           role="button">Novo</a>
     </div>
     <p>
-        <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false"
-           aria-controls="collapseExample">
-            Filtrar
+        <a class="btn btn-primary"
+           data-toggle="collapse"
+           href="#collapseExample"
+           role="button"
+           aria-expanded="false"
+           aria-controls="collapseExample">Filtrar
         </a>
     </p>
     <div class="collapse" id="collapseExample">
@@ -46,17 +58,26 @@
                         <div class="form-row">
                             <div class="form-group col-md-1">
                                 <label for="pasta">Pasta</label>
-                                <input type="text" class="form-control form-control-sm" id="pasta" name="pasta"
+                                <input type="text"
+                                       class="form-control form-control-sm"
+                                       id="pasta"
+                                       name="pasta"
                                        pattern="[0-9]+$">
                             </div>
                             <div class="form-group col-md-1">
                                 <label for="pagina">Página</label>
-                                <input type="text" class="form-control form-control-sm" id="pagina" name="pagina"
+                                <input type="text"
+                                       class="form-control form-control-sm"
+                                       id="pagina"
+                                       name="pagina"
                                        pattern="[0-9]+$">
                             </div>
                             <div class="form-group col-md-1">
                                 <label for="ano">Ano</label>
-                                <input type="text" class="form-control form-control-sm" id="ano" name="ano"
+                                <input type="text"
+                                       class="form-control form-control-sm"
+                                       id="ano"
+                                       name="ano"
                                        pattern="[0-9]+$">
                             </div>
                             <div class="form-group col-md-2">
@@ -85,6 +106,8 @@
             <th scope="col">Titulo Traduzido</th>
             <th scope="col" style="width: 2rem;">Pasta</th>
             <th scope="col" style="width: 2rem;">Página</th>
+            <th scope="col" style="width: 1rem;">TMDB</th>
+            <th scope="col" style="width: 1rem;">IMDB</th>
             <th scope="col" style="width: 1rem;"></th>
             <th scope="col" style="width: 1rem;"></th>
         </tr>
@@ -93,14 +116,20 @@
         {% for poster in posters %}
         <tr>
             <td align="center">{{ poster.ano }}</td>
-            <td><a href="https://www.themoviedb.org/movie/{{ poster.tmdb }}/"
-                   target="_blank">{{poster.titulo_original}}</a></td>
+            <td>{{poster.titulo_original}}</td>
             <td>{{ poster.titulo_traduzido }}</td>
-            <td align="center">{{ poster.pasta }}</td>
-            <td align="center">{{ poster.pagina }}</td>
-            <td align="center"><a href="/editar/{{ poster.id }}"><i class="glyphicon glyphicon-pencil"></i></a></td>
-            <td align="center"><a href="/excluir//{{ poster.id }}"><i class="glyphicon glyphicon-trash"
-                                                                      style="color:red"
+            <td align="center">
+                 {{ poster.pasta if poster.pasta is not none }}
+            </td>
+            <td align="center">
+                {{ poster.pagina if poster.pagina is not none }}
+            </td>
+            <td align="center"><a href="https://www.themoviedb.org/movie/{{ poster.tmdb }}/"
+                                  target="_blank"><i class="glyphicon glyphicon-link"></i></a></td>
+            <td align="center"><a href="https://www.imdb.com/title/{{ poster.imdb }}/"
+                                  target="_blank"><i class="glyphicon glyphicon-link"></i></a></td>
+            <td align="center"><a href="/editar/{{ poster.id }}"><i class="glyphicon glyphicon-pencil green"></i></a></td>
+            <td align="center"><a href="/excluir//{{ poster.id }}"><i class="glyphicon glyphicon-trash red"
                                                                       onclick="return confirm ('Tem certeza que deseja apagar o filme \n\n {{ poster.titulo_original }} \n {{ poster.titulo_traduzido }} ?')"></i></a>
             </td>
         </tr>
@@ -113,58 +142,37 @@
     <script src="https://cdn.datatables.net/1.13.5/js/dataTables.bootstrap.min.js"></script>
 
     <script>
-    $(document).ready(function() {
-      $('#myTable').DataTable({
-        "lengthMenu": [[10, 20, 50, 100, -1], [10, 20, 50, 100,"Todos"]], // Opções de exibição de registros por página, incluindo a opção "Todos"
-        "pageLength": 20, // Registros exibidos por padrão
-        "order": [[0, "asc"]],
-        "aoColumns": [
-        { "bSortable": true },
-        { "bSortable": true },
-        { "bSortable": true },
-        { "bSortable": true },
-        { "bSortable": true },
-        { "bSortable": false },
-        { "bSortable": false }], // Classificar por coluna 0 (Nome) em ordem ascendente
-        "language": {
-          "lengthMenu": "Exibir _MENU_ registros por página",
-          "zeroRecords": "Nenhum registro encontrado",
-          "info": "Página _PAGE_ de _PAGES_ (_TOTAL_ registros)",
-          "infoEmpty": "Nenhum registro disponível",
-          "infoFiltered": "(filtrado de _MAX_ registros no total)",
-          "search": "Pesquisar:",
-          "paginate": {
-            "first": "Primeiro",
-            "last": "Último",
-            "next": "Próximo",
-            "previous": "Anterior"
-          }
-        }
-      });
-    });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        $(document).ready(function() {
+          $('#myTable').DataTable({
+            "lengthMenu": [[10, 20, 50, 100, -1], [10, 20, 50, 100,"Todos"]], // Opções de exibição de registros por página, incluindo a opção "Todos"
+            "pageLength": 20, // Registros exibidos por padrão
+            "order": [[0, "asc"]],
+            "aoColumns": [
+            { "bSortable": true },
+            { "bSortable": true },
+            { "bSortable": true },
+            { "bSortable": true },
+            { "bSortable": true },
+            { "bSortable": false },
+            { "bSortable": false },
+            { "bSortable": false },
+            { "bSortable": false }], // Classificar por coluna 0 (Nome) em ordem ascendente
+            "language": {
+              "lengthMenu": "Exibir _MENU_ registros por página",
+              "zeroRecords": "Nenhum registro encontrado",
+              "info": "Página _PAGE_ de _PAGES_ (_TOTAL_ registros)",
+              "infoEmpty": "Nenhum registro disponível",
+              "infoFiltered": "(filtrado de _MAX_ registros no total)",
+              "search": "Pesquisar:",
+              "paginate": {
+                "first": "Primeiro",
+                "last": "Último",
+                "next": "Próximo",
+                "previous": "Anterior"
+              }
+            }
+          });
+        });
 
 
     </script>

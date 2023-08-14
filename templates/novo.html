@@ -41,7 +41,7 @@ Cadastrar Poster
                id="pasta"
                name="pasta"
                pattern="[0-9]+$"
-               required >
+               required>
     </div>
     <div class="form-group col-md-1">
         <label for="pagina">Página</label>
@@ -51,29 +51,36 @@ Cadastrar Poster
                id="pagina"
                name="pagina"
                pattern="[0-9]+$"
-               required >
+               required>
     </div>
-    <div class="form-check form-check-inline">
-        <input class="form-check-input"
-               type="radio"
-               name="exampleRadios"
-               id="exampleRadios1"
-               value="option1"
-               checked>
-        <label class="form-check-label" for="exampleRadios1">
-            Preto & Branco
-        </label>
+    <div class="form-group col-md-3">
+        <label for="cores">&nbsp;</label>
+        <select class="form-control" id="cores" name="cores">
+            <option value="preto_branco" selected>Preto & Branco</option>
+            <option value="cores">Cores</option>
+        </select>
     </div>
-    <div class="form-check form-check-inline">
-        <input class="form-check-input"
-               type="radio"
-               name="exampleRadios"
-               id="exampleRadios2"
-               value="option2">
-        <label class="form-check-label" for="exampleRadios2">
-            Colorido
-        </label>
-    </div>
+    <!--    <div class="form-check form-check-inline">-->
+    <!--        <input class="form-check-input"-->
+    <!--               type="radio"-->
+    <!--               name="exampleRadios"-->
+    <!--               id="exampleRadios1"-->
+    <!--               value="option1"-->
+    <!--               checked>-->
+    <!--        <label class="form-check-label" for="exampleRadios1">-->
+    <!--            Preto & Branco-->
+    <!--        </label>-->
+    <!--    </div>-->
+    <!--    <div class="form-check form-check-inline">-->
+    <!--        <input class="form-check-input"-->
+    <!--               type="radio"-->
+    <!--               name="exampleRadios"-->
+    <!--               id="exampleRadios2"-->
+    <!--               value="option2">-->
+    <!--        <label class="form-check-label" for="exampleRadios2">-->
+    <!--            Colorido-->
+    <!--        </label>-->
+    <!--    </div>-->
 </div>
 <div class="form-row">
     <div class="form-group col-md-6">
@@ -95,12 +102,14 @@ Cadastrar Poster
                required>
     </div>
 </div>
-<div class="form-group">
-    <label for="link_imagem">Link Imagem</label>
-    <input type="text"
-           class="form-control form-control-sm"
-           id="link_imagem"
-           name="link_imagem">
+<div class="form-row">
+    <div class="form-outline col-md-8">
+        <label for="link_imagem">Link Imagem</label>
+        <input type="text"
+               class="form-control form-control-sm"
+               id="link_imagem"
+               name="link_imagem">
+    </div>
 </div>
 <div class="form-row">
     <div class="form-outline col-md-8">
@@ -108,26 +117,28 @@ Cadastrar Poster
         <textarea class="form-control"
                   rows="7"
                   id="sinopse"
-                  name="sinopse"></textarea>
+                  name="sinopse">
+        </textarea>
     </div>
     <div class="text-center col-md-4">
         <img src="https://colorindo.org/wp-content/uploads/2022/10/desenhos-de-ponto-de-interrogacao-1.jpg"
-             class="rounded img-thumbnail img-200-200" alt="..." id="poster">
+             class="rounded img-thumbnail img-200-200" id="poster">
     </div>
 </div>
 <br>
-<table>
-    <tr>
-        <td align="center">
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <div>
             <button type="submit" class="btn btn-success">Incluir</button>
-            <a class="btn btn-primary" href="/" role="button">Voltar</a>
-        </td>
-    </tr>
-</table>
+            <button type="button" class="btn btn-secondary" onclick="history.back()">Voltar</button>
+        </div>
+    </ol>
+</nav>
+
 {% endblock %}
 
 {% block script %}
 <script>
-document.getElementById("tmdb").focus();
+    document.getElementById("tmdb").focus();
 </script>
 {% endblock %}

@@ -10,13 +10,17 @@
 </head>
 <body>
 <div class="container2">
-    <br>
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item active" aria-current="page">{% block title %} {% endblock %}</li>
+            <li class="breadcrumb-item active"
+                aria-current="page">
+                {% block title %}
+                {% endblock %}</li>
         </ol>
     </nav>
-    <form action="" method="POST" name="meuform">
+    <form action=""
+          method="POST"
+          name="meuform">
         {% block conteudo %}
         {% endblock %}
     </form>

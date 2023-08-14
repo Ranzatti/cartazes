@@ -14,7 +14,6 @@ def index():
         cores = request.form.get("cores")
 
         posters = Posters.query.filter(1 == 1)
-
         if pagina:
             posters = posters.filter(Posters.pagina == pagina)
         if pasta:
@@ -23,7 +22,6 @@ def index():
             posters = posters.filter(Posters.ano == ano)
         if cores != "todos":
             posters = posters.filter(Posters.cores == cores)
-
         posters = posters.all()
 
         return render_template("index.html", posters=posters)
