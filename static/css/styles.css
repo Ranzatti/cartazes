@@ -93,11 +93,22 @@ session.delete div#card div#btns a.btn-apagar{
  session.delete div#card div#btns a.btn-apagar:hover{
     background-color: green;
     color: #fff;
-
  }
 
  .table_wrapper{
     display: block;
     overflow-x: auto;
     white-space: nowrap;
+}
+
+/* .table.dataTable {
+    font-size: 12px;
+} */
+
+.red {
+    color: red;
+}
+
+.green {
+    color: green;
 }
