@@ -1,5 +1,5 @@
 from flask import render_template, request, url_for, redirect
-from model import app, Posters
+from model import app, db, Posters
 
 
 @app.route('/', methods=["GET", "POST"])
@@ -10,7 +10,6 @@ def index():
     if request.method == "POST":
         pagina = request.form.get("pagina")
         pasta = request.form.get("pasta")
-        ano = request.form.get("ano")
         cores = request.form.get("cores")
 
         posters = Posters.query.filter(1 == 1)
@@ -18,8 +17,6 @@ def index():
             posters = posters.filter(Posters.pagina == pagina)
         if pasta:
             posters = posters.filter(Posters.pasta == pasta)
-        if ano:
-            posters = posters.filter(Posters.ano == ano)
         if cores != "todos":
             posters = posters.filter(Posters.cores == cores)
         posters = posters.all()
@@ -48,25 +45,25 @@ def editar(id):
     return render_template("editar.html", poster=poster)
 
 
-@app.route('/popup', methods=["GET", "POST"])
-def popup():
-    print(request.method)
-    if request.method == "POST":
-        print('entrei')
-        Posters.salva(
-            -1,
-            request.form.get("tmdb"),
-            request.form.get("imdb"),
-            request.form.get("titulo_original"),
-            request.form.get("titulo_traduzido"),
-            request.form.get("pagina"),
-            request.form.get("pasta"),
-            request.form.get("data_release"),
-            request.form.get("link_imagem"),
-            request.form.get("sinopse"),
-            request.form.get("cores")
-        )
-    return redirect(url_for("index"))
+# @app.route('/popup', methods=["GET", "POST"])
+# def popup():
+#     print(request.method)
+#     if request.method == "POST":
+#         print('entrei')
+#         Posters.salva(
+#             -1,
+#             request.form.get("tmdb"),
+#             request.form.get("imdb"),
+#             request.form.get("titulo_original"),
+#             request.form.get("titulo_traduzido"),
+#             request.form.get("pagina"),
+#             request.form.get("pasta"),
+#             request.form.get("data_release"),
+#             request.form.get("link_imagem"),
+#             request.form.get("sinopse"),
+#             request.form.get("cores")
+#         )
+#     return redirect(url_for("index"))
 
 
 @app.route('/novo', methods=["GET", "POST"])
@@ -96,8 +93,8 @@ def excluir(id):
     return redirect(url_for("index"))
 
 
-# with app.app_context():
-#     Posters.create()
+with app.app_context():
+    db.create_all()
 
 if __name__ == '__main__':
     app.run(debug=True)
