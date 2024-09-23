@@ -98,9 +98,8 @@
                     <td id="r2">{{ poster.pagina if poster.pagina is not none }}</td>
                     <td id="r2"><a href="https://www.themoviedb.org/movie/{{ poster.tmdb }}/" target="_blank"><i class="glyphicon glyphicon-link"></i></a></td>
                     <td id="r2"><a href="https://www.imdb.com/title/{{ poster.imdb }}/" target="_blank"><i class="glyphicon glyphicon-link"></i></a></td>
-                    <td id="r2"><a href="/editar/{{ poster.id }}"><i class="glyphicon glyphicon-pencil green"></i></a>/td>
-                    <td id="r2"><a href="/excluir/{{ poster.id }}"><i class="glyphicon glyphicon-trash red"
-                                onclick="return confirm ('Tem certeza que deseja deletar o filme \n\n {{ poster.titulo_original }} \n {{ poster.titulo_traduzido }} ?')"></i></a>
+                    <td id="r2"><a href="/editar/{{ poster.id }}"><i class="glyphicon glyphicon-pencil green"></i></a></td>
+                    <td id="r2"><a href="/excluir/{{ poster.id }}"><i class="glyphicon glyphicon-trash red" onclick="return confirm ('Tem certeza que deseja deletar o filme \n\n {{ poster.titulo_original }} \n {{ poster.titulo_traduzido }} ?')"></i></a>
                     </td>
                 </tr>
                 {% endfor %}
