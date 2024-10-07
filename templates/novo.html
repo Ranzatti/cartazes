@@ -31,14 +31,14 @@ Cadastrar Poster
     <div class="form-group col-md-1">
         <label for="pasta">Pasta</label>
         <input style="text-align:center;" type="number" class="form-control form-control-sm" id="pasta" name="pasta"
-            pattern="[0-9]+$" required>
+            pattern="[0-9]+$" value="-1">
     </div>
 
     <!-- Página -->
     <div class="form-group col-md-1">
         <label for="pagina">Página</label>
         <input style="text-align:center;" type="number" class="form-control form-control-sm" id="pagina" name="pagina"
-            pattern="[0-9]+$" required>
+            pattern="[0-9]+$" value="-1">
     </div>
 
     <!-- Preto e Branco -->
@@ -90,8 +90,7 @@ Cadastrar Poster
 <!-- Tabela de Posters Disponíveis -->
 <br>
 <nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <label>Posters Disponíveis</label>
+    <ol class="breadcrumb">        
         <div class="table_wrapper">
             <table id="tblPosters"></table>
         </div>

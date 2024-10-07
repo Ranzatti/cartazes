@@ -77,6 +77,7 @@
         <table id="myTable" class="table table-hover " style="width:100%">
             <thead class="table-dark">
                 <tr>
+                    <th scope="col" style="width: 2rem;">ID</th>
                     <th scope="col" style="width: 2rem;">Ano</th>
                     <th scope="col">Titulo Original</th>
                     <th scope="col">Titulo Traduzido</th>
@@ -91,6 +92,7 @@
             <tbody>
                 {% for poster in posters %}
                 <tr>
+                    <td id="r2">{{ poster.id }}</td>
                     <td id="r2">{{ poster.ano }}</td>
                     <td>{{poster.titulo_original}}</td>
                     <td>{{ poster.titulo_traduzido }}</td>
@@ -115,8 +117,9 @@
                 $('#myTable').DataTable({
                     "lengthMenu": [[10, 20, 50, 100, -1], [10, 20, 50, 100, "Todos"]], // Opções de exibição de registros por página, incluindo a opção "Todos"
                     "pageLength": 20, // Registros exibidos por padrão
-                    "order": [[0, "asc"]],
+                    "order": [[0, "desc"]],
                     "aoColumns": [
+                        { "bSortable": true },
                         { "bSortable": true },
                         { "bSortable": true },
                         { "bSortable": true },

@@ -4,13 +4,12 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 #app.config.from_object('config')
 #app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://snrmyrdk:WdWoPvt6qtVm9uq8V93rSYGKkf3WW-nt@tuffi.db.elephantsql.com/snrmyrdk'
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://socorrpm:SICSADM@localhost:5432/socorrpm'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://ranzatti:a@localhost:5432/ranzatti'
 
 db = SQLAlchemy(app)
 
 class Posters(db.Model):
-    __tablename__ = 'posters'
+    __tablename__ = 'poster'
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     tmdb = db.Column(db.Integer)
@@ -39,6 +38,13 @@ class Posters(db.Model):
         self.cores = cores
 
     def salva(id, tmdb, imdb, titulo_original, titulo_traduzido, pagina, pasta, data_release, link_imagem, sinopse,  cores):
+
+
+        # Verificar se o nome já existe no banco de dados
+        existing_record = Posters.query.filter_by(tmdb=tmdb).first()
+        if existing_record:
+            return False
+
         ano = int(data_release[0:4])
         poster = Posters.query.filter_by(id=id).first()
         if poster:
@@ -74,7 +80,8 @@ class Posters(db.Model):
         return Posters.query.filter_by(id=id).first()
 
     def getAll():
-        posters = Posters.query.order_by("ano").all()
+        posters = Posters.query.order_by(Posters.id.desc()).all()
+        # posters = Posters.query.order_by("ano").all()
         # posters = Posters.query.order_by("ano").limit(30).all()
         # posters = Posters.query.order_by(Posters.titulo_original.asc()).all()
         return posters
